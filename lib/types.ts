@@ -19,6 +19,8 @@ export interface HorarioDia {
   cierre: string
 }
 
+export type TipoServicio = "Envío de paquetes" | "Retiro"
+
 export interface Sucursal {
   id: string
   nombre: string
@@ -30,7 +32,7 @@ export interface Sucursal {
   tipo: SucursalTipo
   estado: SucursalEstado
   horario: HorarioDia[]
-  modalidades: string[]
+  modalidades: TipoServicio[]
   dimensionesMax: string
   ultimoRetiro: string
   telefono?: string

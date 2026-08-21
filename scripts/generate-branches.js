@@ -49,7 +49,7 @@ for (const [ciudad, data] of Object.entries(ciudades)) {
     tipo: "${tipo}",
     estado: "${estado}",
     horario: horarioEstandar,
-    modalidades: ["Envío de paquetes", "Retiro", "Encomiendas"],
+    modalidades: ["Envío de paquetes", "Retiro"],
     dimensionesMax: "150 x 80 x 80 cm · hasta 50 kg",
     ultimoRetiro: "18:30",
     telefono: "+56 9 ${Math.floor(Math.random() * 8999 + 1000)} ${Math.floor(Math.random() * 8999 + 1000)}",
