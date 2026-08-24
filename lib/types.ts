@@ -19,7 +19,7 @@ export interface HorarioDia {
   cierre: string
 }
 
-export type TipoServicio = "Envío de paquetes" | "Retiro"
+export type TipoServicio = "Envío de paquetes" | "Retiro de paquetes"
 
 export interface Sucursal {
   id: string
