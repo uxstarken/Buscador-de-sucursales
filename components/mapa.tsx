@@ -34,16 +34,17 @@ function popupHtml(s: Sucursal) {
     estadoColor = "#c0392b"
     estadoLabel = "NO OPERATIVA"
   }
+  const isNoOperativa = s.estado === "no_operativa"
   return `
   <div style="padding:14px 16px;font-family:inherit;">
-    <div style="display:inline-block;font-size:11px;font-weight:600;color:#2c8a3d;background:#e8f3ea;border-radius:999px;padding:2px 8px;margin-bottom:8px;">${TIPO_LABEL[s.tipo]}</div>
+    <div style="display:inline-block;font-size:11px;font-weight:600;color:${isNoOperativa ? "#6b7280" : "#2c8a3d"};background:${isNoOperativa ? "#e5e7eb" : "#e8f3ea"};border-radius:999px;padding:2px 8px;margin-bottom:8px;">${TIPO_LABEL[s.tipo]}</div>
     <div style="font-size:14px;font-weight:700;color:#2b2b2b;line-height:1.3;">${s.nombre}</div>
     <div style="font-size:12px;color:#6b6b6b;margin-top:4px;line-height:1.4;">${s.direccion}</div>
     <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:0.02em;color:${estadoColor};">
       <span style="width:8px;height:8px;border-radius:999px;background:${estadoColor};display:inline-block;"></span>${estadoLabel}
     </div>
     <div style="margin-top:12px;padding-top:12px;border-top:1px solid #eee;text-align:center;">
-      <a href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener noreferrer" style="color:#1e7e45;text-decoration:none;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:4px;">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener noreferrer" style="color:${isNoOperativa ? "#6b7280" : "#1e7e45"};text-decoration:none;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:4px;">
         Cómo llegar
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
       </a>

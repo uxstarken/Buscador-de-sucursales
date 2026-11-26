@@ -41,8 +41,8 @@ export function TarjetaSucursal({
         noOperativa ? "bg-[#F5F5F5]" : "bg-card",
         noOperativa
           ? activa
-            ? "border-[#FB923C] shadow-md ring-1 ring-[#FB923C]"
-            : "border-[#FED7AA] hover:border-[#FB923C]/70 hover:shadow-sm"
+            ? "border-neutral-400 shadow-md ring-1 ring-neutral-400"
+            : "border-border hover:border-neutral-300 hover:shadow-sm"
           : activa
             ? "border-primary shadow-md ring-1 ring-primary"
             : "border-border hover:border-primary/40 hover:shadow-sm",
@@ -66,7 +66,12 @@ export function TarjetaSucursal({
           aria-label={`Seleccionar ${sucursal.nombre}`}
         >
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-primary">
+            <span
+              className={cn(
+                "text-[11px] font-semibold uppercase tracking-wide",
+                noOperativa ? "text-muted-foreground" : "text-primary",
+              )}
+            >
               {TIPO_LABEL[sucursal.tipo]}
             </span>
             {distancia && (
@@ -165,7 +170,12 @@ export function TarjetaSucursal({
                     {sucursal.modalidades.map((m) => (
                       <li
                         key={m}
-                        className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium text-accent-foreground"
+                        className={cn(
+                          "rounded-full px-2 py-0.5 text-[11px] font-medium",
+                          noOperativa
+                            ? "bg-neutral-200/80 text-neutral-600"
+                            : "bg-accent text-accent-foreground",
+                        )}
                       >
                         {m}
                       </li>
@@ -186,7 +196,10 @@ export function TarjetaSucursal({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+                  className={cn(
+                    "text-xs font-semibold hover:underline inline-flex items-center gap-1",
+                    noOperativa ? "text-neutral-600 hover:text-neutral-800" : "text-primary",
+                  )}
                 >
                   Cómo llegar (Google Maps) ↗
                 </a>
