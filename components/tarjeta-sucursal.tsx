@@ -37,7 +37,8 @@ export function TarjetaSucursal({
   return (
     <li
       className={cn(
-        "overflow-hidden rounded-xl border bg-card transition-all duration-300 ease-in-out",
+        "overflow-hidden rounded-xl border transition-all duration-300 ease-in-out",
+        noOperativa ? "bg-[#F5F5F5]" : "bg-card",
         noOperativa
           ? activa
             ? "border-[#FB923C] shadow-md ring-1 ring-[#FB923C]"
