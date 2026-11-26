@@ -40,9 +40,18 @@ function popupHtml(s: Sucursal) {
     <div style="display:inline-block;font-size:11px;font-weight:600;color:${isNoOperativa ? "#6b7280" : "#2c8a3d"};background:${isNoOperativa ? "#e5e7eb" : "#e8f3ea"};border-radius:999px;padding:2px 8px;margin-bottom:8px;">${TIPO_LABEL[s.tipo]}</div>
     <div style="font-size:14px;font-weight:700;color:#2b2b2b;line-height:1.3;">${s.nombre}</div>
     <div style="font-size:12px;color:#6b6b6b;margin-top:4px;line-height:1.4;">${s.direccion}</div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:0.02em;color:${estadoColor};">
-      <span style="width:8px;height:8px;border-radius:999px;background:${estadoColor};display:inline-block;"></span>${estadoLabel}
-    </div>
+    ${
+      isNoOperativa
+        ? `<div style="margin-top:8px;">
+            <span style="display:inline-flex;align-items:center;gap:5px;background:#fef2f2;border:1px solid rgba(254,202,202,0.8);color:#dc2626;border-radius:9999px;padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              No operativa
+            </span>
+          </div>`
+        : `<div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:0.02em;color:${estadoColor};">
+            <span style="width:8px;height:8px;border-radius:999px;background:${estadoColor};display:inline-block;"></span>${estadoLabel}
+          </div>`
+    }
     <div style="margin-top:12px;padding-top:12px;border-top:1px solid #eee;text-align:center;">
       <a href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener noreferrer" style="color:#1e7e45;text-decoration:none;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:4px;">
         Cómo llegar
