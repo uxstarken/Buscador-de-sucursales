@@ -36,7 +36,7 @@ function popupHtml(s: Sucursal) {
   }
   const isNoOperativa = s.estado === "no_operativa"
   return `
-  <div style="padding:14px 16px;font-family:inherit;">
+  <div style="padding:14px 16px;font-family:inherit;background:${isNoOperativa ? "#f5f5f5" : "#ffffff"};border-radius:inherit;">
     <div style="display:inline-block;font-size:11px;font-weight:600;color:${isNoOperativa ? "#6b7280" : "#2c8a3d"};background:${isNoOperativa ? "#e5e7eb" : "#e8f3ea"};border-radius:999px;padding:2px 8px;margin-bottom:8px;">${TIPO_LABEL[s.tipo]}</div>
     <div style="font-size:14px;font-weight:700;color:#2b2b2b;line-height:1.3;">${s.nombre}</div>
     <div style="font-size:12px;color:#6b6b6b;margin-top:4px;line-height:1.4;">${s.direccion}</div>
@@ -164,7 +164,10 @@ export default function Mapa({
       const marker = L.marker([s.lat, s.lng], {
         icon: makeIcon(s.tipo, false, s.estado === "no_operativa"),
       })
-      marker.bindPopup(popupHtml(s), { closeButton: true })
+      marker.bindPopup(popupHtml(s), {
+        closeButton: true,
+        className: s.estado === "no_operativa" ? "popup-no-operativa" : "",
+      })
       marker.on("click", () => onPinClickRef.current(s.id))
       marker.addTo(map)
       markersRef.current.set(s.id, marker)
