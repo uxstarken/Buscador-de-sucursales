@@ -37,10 +37,15 @@ export function TarjetaSucursal({
   return (
     <li
       className={cn(
-        "overflow-hidden rounded-xl border bg-card transition-all duration-300 ease-in-out",
-        activa
-          ? "border-primary shadow-md ring-1 ring-primary"
-          : "border-border hover:border-primary/40 hover:shadow-sm",
+        "overflow-hidden rounded-xl border transition-all duration-300 ease-in-out",
+        noOperativa ? "bg-[#FFEDD5]" : "bg-card",
+        noOperativa
+          ? activa
+            ? "border-[#FB923C] shadow-md ring-1 ring-[#FB923C]"
+            : "border-[#FED7AA] hover:border-[#FB923C]/70 hover:shadow-sm"
+          : activa
+            ? "border-primary shadow-md ring-1 ring-primary"
+            : "border-border hover:border-primary/40 hover:shadow-sm",
       )}
     >
       <div className="flex items-start gap-3 py-4 px-[10px] lg:p-4">
@@ -49,7 +54,10 @@ export function TarjetaSucursal({
           alt=""
           width={44}
           height={44}
-          className="size-11 shrink-0 rounded-full object-contain"
+          className={cn(
+            "size-11 shrink-0 rounded-full object-contain",
+            noOperativa && "grayscale opacity-60 contrast-75"
+          )}
         />
         <button
           type="button"
@@ -101,41 +109,41 @@ export function TarjetaSucursal({
           )}
         </button>
 
-        {!noOperativa && (
-          <button
-            type="button"
-            onClick={onToggleExpandir}
-            aria-expanded={expandida}
-            aria-label={expandida ? "Ocultar detalle" : "Ver detalle"}
-            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
-          >
-            <ChevronDown
-              className={cn(
-                "size-5 transition-transform duration-300 ease-in-out",
-                expandida && "rotate-180",
-              )}
-              aria-hidden="true"
-            />
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={onToggleExpandir}
+          aria-expanded={expandida}
+          aria-label={expandida ? "Ocultar detalle" : "Ver detalle"}
+          className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+        >
+          <ChevronDown
+            className={cn(
+              "size-5 transition-transform duration-300 ease-in-out",
+              expandida && "rotate-180",
+            )}
+            aria-hidden="true"
+          />
+        </button>
       </div>
 
       {/* Contenedor colapsable con animación suave de expansión/contracción */}
-      {!noOperativa && (
-        <div
-          className={cn(
-            "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out",
-            expandida ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-          )}
-        >
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out",
+          expandida ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        )}
+      >
         <div className="overflow-hidden">
-          <div className="border-t border-border py-4 px-[10px] lg:px-4 text-xs">
-            <HorarioAtencion horario={sucursal.horario} />
-
-            <UltimoRetiro horario={sucursal.horario} ultimoRetiro={sucursal.ultimoRetiro} />
+          <div className={cn("border-t py-4 px-[10px] lg:px-4 text-xs", noOperativa ? "border-orange-200/60" : "border-border")}>
+            {!noOperativa && (
+              <>
+                <HorarioAtencion horario={sucursal.horario} />
+                <UltimoRetiro horario={sucursal.horario} ultimoRetiro={sucursal.ultimoRetiro} />
+              </>
+            )}
 
             {/* Tamaño máximo de envío */}
-            <div className="mt-4 flex items-start gap-3">
+            <div className={cn("flex items-start gap-3", !noOperativa && "mt-4")}>
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
                 <Package className="size-4" aria-hidden="true" />
               </span>
@@ -187,7 +195,6 @@ export function TarjetaSucursal({
           </div>
         </div>
       </div>
-      )}
     </li>
   )
 }

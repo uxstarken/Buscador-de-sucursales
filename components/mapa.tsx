@@ -13,11 +13,14 @@ const TIPO_PIN: Record<string, string> = {
   "red-alianzas": "/pins/pin-alianzas.png",
 }
 
-function makeIcon(tipo: string, active: boolean) {
+function makeIcon(tipo: string, active: boolean, noOperativa: boolean = false) {
   const src = TIPO_PIN[tipo] ?? TIPO_PIN.tradicional
+  const imgStyle = noOperativa
+    ? "filter: grayscale(100%) opacity(0.65);"
+    : ""
   return L.divIcon({
-    className: `starken-pin${active ? " is-active" : ""}`,
-    html: `<img src="${src}" alt="" />`,
+    className: `starken-pin${active ? " is-active" : ""}${noOperativa ? " is-disabled" : ""}`,
+    html: `<img src="${src}" alt="" style="${imgStyle}" />`,
     iconSize: [34, 44],
     iconAnchor: [17, 44],
     popupAnchor: [0, -42],
@@ -158,7 +161,7 @@ export default function Mapa({
 
     sucursales.forEach((s) => {
       const marker = L.marker([s.lat, s.lng], {
-        icon: makeIcon(s.tipo, false),
+        icon: makeIcon(s.tipo, false, s.estado === "no_operativa"),
       })
       marker.bindPopup(popupHtml(s), { closeButton: true })
       marker.on("click", () => onPinClickRef.current(s.id))
@@ -227,7 +230,7 @@ export default function Mapa({
       const marker = markersRef.current.get(s.id)
       if (!marker) return
       const active = s.id === sucursalActivaId
-      marker.setIcon(makeIcon(s.tipo, active))
+      marker.setIcon(makeIcon(s.tipo, active, s.estado === "no_operativa"))
     })
 
     if (sucursalActivaId) {
