@@ -37,8 +37,7 @@ export function TarjetaSucursal({
   return (
     <li
       className={cn(
-        "overflow-hidden rounded-xl border transition-all duration-300 ease-in-out",
-        noOperativa ? "bg-[#FFEDD5]" : "bg-card",
+        "overflow-hidden rounded-xl border bg-card transition-all duration-300 ease-in-out",
         noOperativa
           ? activa
             ? "border-[#FB923C] shadow-md ring-1 ring-[#FB923C]"
@@ -134,7 +133,7 @@ export function TarjetaSucursal({
         )}
       >
         <div className="overflow-hidden">
-          <div className={cn("border-t py-4 px-[10px] lg:px-4 text-xs", noOperativa ? "border-orange-200/60" : "border-border")}>
+          <div className="border-t border-border py-4 px-[10px] lg:px-4 text-xs">
             {!noOperativa && (
               <>
                 <HorarioAtencion horario={sucursal.horario} />
@@ -160,7 +159,7 @@ export function TarjetaSucursal({
                   <Layers className="size-4" aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="font-bold text-[#414745]">Servicios disponibles</p>
+                  <p className="font-bold text-[#414745]">{noOperativa ? "Servicios" : "Servicios disponibles"}</p>
                   <ul className="mt-1 flex flex-wrap gap-1">
                     {sucursal.modalidades.map((m) => (
                       <li
