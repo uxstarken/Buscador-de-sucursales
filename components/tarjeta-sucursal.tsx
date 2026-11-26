@@ -191,12 +191,15 @@ export function TarjetaSucursal({
                 <MapPin className="size-4" aria-hidden="true" />
               </span>
               <div className="pt-2">
-                <a 
+                <a
                   href={`https://www.google.com/maps/dir/?api=1&destination=${sucursal.lat},${sucursal.lng}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+                  className={cn(
+                    "text-xs font-semibold hover:underline inline-flex items-center gap-1",
+                    noOperativa ? "text-neutral-600 hover:text-neutral-800" : "text-primary",
+                  )}
                 >
                   Cómo llegar (Google Maps) ↗
                 </a>
