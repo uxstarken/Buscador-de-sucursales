@@ -201,7 +201,10 @@
   padding: 0;
 }
 .popup-no-operativa .leaflet-popup-content-wrapper,
-.popup-no-operativa .leaflet-popup-tip {
+.popup-no-operativa .leaflet-popup-tip,
+.leaflet-popup.popup-no-operativa .leaflet-popup-content-wrapper,
+.leaflet-popup.popup-no-operativa .leaflet-popup-tip {
+  background-color: #f5f5f5 !important;
   background: #f5f5f5 !important;
 }
 .leaflet-popup-content {

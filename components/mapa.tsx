@@ -161,14 +161,26 @@ export default function Mapa({
     markersRef.current.clear()
 
     sucursales.forEach((s) => {
+      const isNoOp = s.estado === "no_operativa"
       const marker = L.marker([s.lat, s.lng], {
-        icon: makeIcon(s.tipo, false, s.estado === "no_operativa"),
+        icon: makeIcon(s.tipo, false, isNoOp),
       })
       marker.bindPopup(popupHtml(s), {
         closeButton: true,
-        className: s.estado === "no_operativa" ? "popup-no-operativa" : "",
+        className: isNoOp ? "popup-no-operativa" : "",
       })
       marker.on("click", () => onPinClickRef.current(s.id))
+      marker.on("popupopen", (e) => {
+        if (isNoOp && e.popup) {
+          const el = e.popup.getElement()
+          if (el) {
+            const wrapper = el.querySelector(".leaflet-popup-content-wrapper") as HTMLElement | null
+            if (wrapper) wrapper.style.backgroundColor = "#f5f5f5"
+            const tip = el.querySelector(".leaflet-popup-tip") as HTMLElement | null
+            if (tip) tip.style.backgroundColor = "#f5f5f5"
+          }
+        }
+      })
       marker.addTo(map)
       markersRef.current.set(s.id, marker)
     })
