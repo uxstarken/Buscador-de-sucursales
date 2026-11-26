@@ -44,7 +44,7 @@ function popupHtml(s: Sucursal) {
       <span style="width:8px;height:8px;border-radius:999px;background:${estadoColor};display:inline-block;"></span>${estadoLabel}
     </div>
     <div style="margin-top:12px;padding-top:12px;border-top:1px solid #eee;text-align:center;">
-      <a href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener noreferrer" style="color:${isNoOperativa ? "#6b7280" : "#1e7e45"};text-decoration:none;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:4px;">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener noreferrer" style="color:#1e7e45;text-decoration:none;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:4px;">
         Cómo llegar
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
       </a>

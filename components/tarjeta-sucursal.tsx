@@ -196,10 +196,7 @@ export function TarjetaSucursal({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className={cn(
-                    "text-xs font-semibold hover:underline inline-flex items-center gap-1",
-                    noOperativa ? "text-neutral-600 hover:text-neutral-800" : "text-primary",
-                  )}
+                  className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
                 >
                   Cómo llegar (Google Maps) ↗
                 </a>
