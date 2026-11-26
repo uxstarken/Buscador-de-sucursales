@@ -129,7 +129,7 @@ export function PanelInformativoTipo({ tipo }: PanelInformativoTipoProps) {
         onClick={() => setIsExpanded((prev) => !prev)}
         className="flex w-full items-center justify-between text-left text-xs font-bold text-[#414745] hover:text-primary transition-colors cursor-pointer"
       >
-        <span className="flex items-center gap-1.5 uppercase tracking-wide font-[family-name:var(--font-exo)] font-bold">
+        <span className="flex items-center gap-1.5 uppercase tracking-wide font-heading font-bold">
           Condiciones de Punto {labelTipo}
         </span>
         <div className="flex items-center gap-1.5 text-[11px] font-bold text-primary">
@@ -143,29 +143,29 @@ export function PanelInformativoTipo({ tipo }: PanelInformativoTipoProps) {
         </div>
       </button>
 
-      {/* Cuerpo colapsable */}
+      {/* Cuerpo colapsable con animación suave */}
       <div
         className={cn(
-          "transition-all duration-300 ease-in-out overflow-hidden",
-          isExpanded
-            ? "max-h-[350px] opacity-100 mt-3.5"
-            : "max-h-0 opacity-0 pointer-events-none",
+          "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out",
+          isExpanded ? "grid-rows-[1fr] opacity-100 mt-3.5" : "grid-rows-[0fr] opacity-0 pointer-events-none"
         )}
       >
-        <ul className="flex flex-col gap-2 border-t border-border/10 pt-3">
-          {info.items.map((item, index) => {
-            const Icon = item.icon
-            return (
-              <li
-                key={index}
-                className="flex items-start gap-2 text-[12px] leading-relaxed text-foreground/80"
-              >
-                <Icon className={`mt-0.5 size-4 shrink-0 ${info.claseIcono}`} />
-                <span className="font-medium">{item.text}</span>
-              </li>
-            )
-          })}
-        </ul>
+        <div className="overflow-hidden">
+          <ul className="flex flex-col gap-2 border-t border-border/10 pt-3">
+            {info.items.map((item, index) => {
+              const Icon = item.icon
+              return (
+                <li
+                  key={index}
+                  className="flex items-start gap-2 text-[12px] leading-relaxed text-foreground/80"
+                >
+                  <Icon className={`mt-0.5 size-4 shrink-0 ${info.claseIcono}`} />
+                  <span className="font-medium">{item.text}</span>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   )

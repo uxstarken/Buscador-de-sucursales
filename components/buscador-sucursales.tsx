@@ -338,17 +338,15 @@ export function BuscadorSucursales({ hideHeader = false }: BuscadorSucursalesPro
       <div className="flex flex-1 flex-col pb-8">
         {/* Banner de Cabecera Horizontal Compacto */}
         {!hideHeader && (
-          <div className="bg-gradient-to-r from-[#e8f3ea]/70 via-card to-card border-b border-border px-4 py-3 flex flex-col gap-0.5 shrink-0">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[8px] font-bold text-primary tracking-wide uppercase">
-                Red Starken
-              </span>
-            </div>
-            <h1 className="text-base font-black tracking-tight text-foreground font-[family-name:var(--font-exo)] leading-tight">
+          <div className="bg-gradient-to-r from-[#e8f3ea] via-[#f5f9f6] to-white border-b border-border px-4 py-3 flex flex-col items-start text-left gap-1 shrink-0">
+            <span className="inline-flex items-center rounded-full bg-[#dcf0e2] px-2.5 py-0.5 text-[10px] font-bold text-[#1b7a3e] tracking-wider uppercase">
+              Red Starken
+            </span>
+            <h1 className="text-xl font-bold tracking-tight text-[#001e36] font-din leading-tight">
               Encuentra tu Punto de Envío o Retiro
             </h1>
-            <p className="text-[10px] text-muted-foreground leading-normal">
-              Ubica sucursales tradicionales, puntos 24/7, alianzas y Soy Starken en todo Chile.
+            <p className="text-xs text-muted-foreground font-nunito leading-normal">
+              Ubica sucursales tradicionales, autoatención y puntos de alianza en todo Chile.
             </p>
           </div>
         )}
@@ -464,17 +462,15 @@ export function BuscadorSucursales({ hideHeader = false }: BuscadorSucursalesPro
     <div className="flex flex-1 flex-col min-h-0 overflow-hidden">
       {/* Banner de Cabecera Horizontal Completo */}
       {!hideHeader && (
-        <div className="bg-gradient-to-r from-[#e8f3ea]/70 via-card to-card border-b border-border px-6 py-4 flex flex-col gap-0.5 shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[9px] font-bold text-primary tracking-wide uppercase">
-              Red Starken
-            </span>
-          </div>
-          <h1 className="text-2xl font-black tracking-tight text-foreground font-[family-name:var(--font-exo)] leading-tight">
+        <div className="bg-gradient-to-r from-[#e8f3ea] via-[#f5f9f6] to-white border-b border-border px-6 py-4 flex flex-col items-start text-left gap-1 shrink-0">
+          <span className="inline-flex items-center rounded-full bg-[#dcf0e2] px-2.5 py-0.5 text-[10px] font-bold text-[#1b7a3e] tracking-wider uppercase">
+            Red Starken
+          </span>
+          <h1 className="text-2xl font-bold tracking-tight text-[#001e36] font-din leading-tight">
             Encuentra tu Punto de Envío o Retiro
           </h1>
-          <p className="text-xs text-muted-foreground">
-            Ubica sucursales tradicionales, puntos 24/7, alianzas y Soy Starken en todo Chile.
+          <p className="text-sm text-muted-foreground font-nunito leading-normal">
+            Ubica sucursales tradicionales, autoatención y puntos de alianza en todo Chile.
           </p>
         </div>
       )}

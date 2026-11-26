@@ -11,7 +11,7 @@ export type SucursalTipo =
   | "soy-starken"
   | "red-alianzas"
 
-export type SucursalEstado = "abierto" | "cerrado" | "con_retraso"
+export type SucursalEstado = "abierto" | "cerrado" | "con_retraso" | "no_operativa"
 
 export interface HorarioDia {
   dia: string

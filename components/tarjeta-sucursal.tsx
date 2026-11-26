@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { ChevronDown, MapPin, Phone, Package, Layers, Clock, AlertCircle } from "lucide-react"
+import { ChevronDown, MapPin, Phone, Package, Layers, Clock, AlertCircle, Wrench } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { TIPO_LABEL, type SucursalTipo } from "@/lib/types"
 import { formatDistancia, type SucursalConDistancia } from "@/lib/search"
@@ -30,13 +30,14 @@ export function TarjetaSucursal({
   onSeleccionar,
   onToggleExpandir,
 }: TarjetaSucursalProps) {
+  const noOperativa = sucursal.estado === "no_operativa"
   const abierto = sucursal.estado === "abierto"
   const distancia = formatDistancia(sucursal.distancia)
 
   return (
     <li
       className={cn(
-        "overflow-hidden rounded-xl border bg-card transition-all",
+        "overflow-hidden rounded-xl border bg-card transition-all duration-300 ease-in-out",
         activa
           ? "border-primary shadow-md ring-1 ring-primary"
           : "border-border hover:border-primary/40 hover:shadow-sm",
@@ -53,7 +54,7 @@ export function TarjetaSucursal({
         <button
           type="button"
           onClick={onSeleccionar}
-          className="flex-1 text-left"
+          className="flex-1 text-left cursor-pointer"
           aria-label={`Seleccionar ${sucursal.nombre}`}
         >
           <div className="flex items-center gap-2">
@@ -73,98 +74,119 @@ export function TarjetaSucursal({
             <MapPin className="mt-0.5 size-3 shrink-0" aria-hidden="true" />
             <span>{sucursal.direccion}</span>
           </p>
-          <div className="mt-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide">
-            <span
+          {noOperativa ? (
+            <div className="mt-2 flex items-center">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 border border-red-200/80 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">
+                <Wrench className="size-3 shrink-0 text-destructive" aria-hidden="true" />
+                No operativa
+              </span>
+            </div>
+          ) : (
+            <div className="mt-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide">
+              <span
+                className={cn(
+                  "size-2 rounded-full",
+                  abierto ? "bg-success" : "bg-destructive",
+                )}
+                aria-hidden="true"
+              />
+              <span className={abierto ? "text-success" : "text-destructive"}>
+                {abierto ? "Abierto ahora" : "Cerrado"}
+              </span>
+              {/* Mostrar próxima apertura cuando está cerrado */}
+              {!abierto && (
+                <ProximaApertura horario={sucursal.horario} />
+              )}
+            </div>
+          )}
+        </button>
+
+        {!noOperativa && (
+          <button
+            type="button"
+            onClick={onToggleExpandir}
+            aria-expanded={expandida}
+            aria-label={expandida ? "Ocultar detalle" : "Ver detalle"}
+            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+          >
+            <ChevronDown
               className={cn(
-                "size-2 rounded-full",
-                abierto ? "bg-success" : "bg-destructive",
+                "size-5 transition-transform duration-300 ease-in-out",
+                expandida && "rotate-180",
               )}
               aria-hidden="true"
             />
-            <span className={abierto ? "text-success" : "text-destructive"}>
-              {abierto ? "Abierto ahora" : "Cerrado"}
-            </span>
-            {/* Mostrar próxima apertura cuando está cerrado */}
-            {!abierto && (
-              <ProximaApertura horario={sucursal.horario} />
-            )}
-          </div>
-        </button>
-
-        <button
-          type="button"
-          onClick={onToggleExpandir}
-          aria-expanded={expandida}
-          aria-label={expandida ? "Ocultar detalle" : "Ver detalle"}
-          className="shrink-0 rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        >
-          <ChevronDown
-            className={cn(
-              "size-5 transition-transform",
-              expandida && "rotate-180",
-            )}
-            aria-hidden="true"
-          />
-        </button>
+          </button>
+        )}
       </div>
 
-      {expandida && (
-        <div className="border-t border-border py-4 px-[10px] lg:px-4 text-xs">
-          <HorarioAtencion horario={sucursal.horario} />
+      {/* Contenedor colapsable con animación suave de expansión/contracción */}
+      {!noOperativa && (
+        <div
+          className={cn(
+            "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out",
+            expandida ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          )}
+        >
+        <div className="overflow-hidden">
+          <div className="border-t border-border py-4 px-[10px] lg:px-4 text-xs">
+            <HorarioAtencion horario={sucursal.horario} />
 
-          <UltimoRetiro horario={sucursal.horario} ultimoRetiro={sucursal.ultimoRetiro} />
+            <UltimoRetiro horario={sucursal.horario} ultimoRetiro={sucursal.ultimoRetiro} />
 
-          {/* Tamaño máximo de envío */}
-          <div className="mt-4 flex items-start gap-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
-              <Package className="size-4" aria-hidden="true" />
-            </span>
-            <div>
-              <p className="font-bold text-[#414745]">Tamaño máximo de envío</p>
-              <p className="mt-0.5 text-muted-foreground">{sucursal.dimensionesMax}</p>
-            </div>
-          </div>
-
-          {/* Servicios disponibles */}
-          {sucursal.modalidades && sucursal.modalidades.length > 0 && (
+            {/* Tamaño máximo de envío */}
             <div className="mt-4 flex items-start gap-3">
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
-                <Layers className="size-4" aria-hidden="true" />
+                <Package className="size-4" aria-hidden="true" />
               </span>
               <div>
-                <p className="font-bold text-[#414745]">Servicios disponibles</p>
-                <ul className="mt-1 flex flex-wrap gap-1">
-                  {sucursal.modalidades.map((m) => (
-                    <li
-                      key={m}
-                      className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium text-accent-foreground"
-                    >
-                      {m}
-                    </li>
-                  ))}
-                </ul>
+                <p className="font-bold text-[#414745]">Tamaño máximo de envío</p>
+                <p className="mt-0.5 text-muted-foreground">{sucursal.dimensionesMax}</p>
               </div>
             </div>
-          )}
 
-          {/* Cómo llegar */}
-          <div className="mt-4 flex items-start gap-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
-              <MapPin className="size-4" aria-hidden="true" />
-            </span>
-            <div className="pt-2">
-              <a 
-                href={`https://www.google.com/maps/dir/?api=1&destination=${sucursal.lat},${sucursal.lng}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-xs font-semibold text-primary hover:underline"
-              >
-                Cómo llegar (Google Maps) ↗
-              </a>
+            {/* Servicios disponibles */}
+            {sucursal.modalidades && sucursal.modalidades.length > 0 && (
+              <div className="mt-4 flex items-start gap-3">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                  <Layers className="size-4" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="font-bold text-[#414745]">Servicios disponibles</p>
+                  <ul className="mt-1 flex flex-wrap gap-1">
+                    {sucursal.modalidades.map((m) => (
+                      <li
+                        key={m}
+                        className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium text-accent-foreground"
+                      >
+                        {m}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* Cómo llegar */}
+            <div className="mt-4 flex items-start gap-3">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                <MapPin className="size-4" aria-hidden="true" />
+              </span>
+              <div className="pt-2">
+                <a 
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${sucursal.lat},${sucursal.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  Cómo llegar (Google Maps) ↗
+                </a>
+              </div>
             </div>
           </div>
         </div>
+      </div>
       )}
     </li>
   )

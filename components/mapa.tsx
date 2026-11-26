@@ -25,8 +25,12 @@ function makeIcon(tipo: string, active: boolean) {
 }
 
 function popupHtml(s: Sucursal) {
-  const estadoColor = s.estado === "abierto" ? "#2c8a3d" : "#c0392b"
-  const estadoLabel = s.estado === "abierto" ? "ABIERTO" : "CERRADO"
+  let estadoColor = s.estado === "abierto" ? "#2c8a3d" : "#c0392b"
+  let estadoLabel = s.estado === "abierto" ? "ABIERTO" : "CERRADO"
+  if (s.estado === "no_operativa") {
+    estadoColor = "#c0392b"
+    estadoLabel = "NO OPERATIVA"
+  }
   return `
   <div style="padding:14px 16px;font-family:inherit;">
     <div style="display:inline-block;font-size:11px;font-weight:600;color:#2c8a3d;background:#e8f3ea;border-radius:999px;padding:2px 8px;margin-bottom:8px;">${TIPO_LABEL[s.tipo]}</div>

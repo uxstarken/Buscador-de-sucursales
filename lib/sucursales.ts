@@ -20,7 +20,7 @@ export const sucursales: Sucursal[] = [
     lat: -33.4563,
     lng: -70.6851,
     tipo: "soy-starken",
-    estado: "cerrado",
+    estado: "no_operativa",
     horario: horarioEstandar,
     modalidades: ["Envío de paquetes", "Retiro de paquetes"],
     dimensionesMax: "150 x 80 x 80 cm · hasta 50 kg",

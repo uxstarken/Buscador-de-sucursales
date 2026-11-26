@@ -1,13 +1,30 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Exo } from 'next/font/google'
+import { Nunito } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
-const exo = Exo({ variable: '--font-exo', subsets: ['latin'] })
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const nunito = Nunito({
+  variable: '--font-nunito',
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+})
+
+const din = localFont({
+  src: [
+    {
+      path: '../public/fonts/D-DIN.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/D-DIN-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-din',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -40,8 +57,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable} ${exo.variable} bg-background`}>
-      <body className="font-sans antialiased">
+    <html lang="es" className={`${nunito.variable} ${din.variable} bg-background font-sans`}>
+      <body className="font-sans antialiased text-[#2b2b2b]">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
